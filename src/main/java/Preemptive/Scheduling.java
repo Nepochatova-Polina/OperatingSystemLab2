@@ -1,7 +1,7 @@
-// This file contains the main() function for the Scheduling
+package Preemptive;// This file contains the main() function for the Preemptive.Scheduling
 // simulation.  Init() initializes most of the variables by
-// reading from a provided file.  SchedulingAlgorithm.Run() is
-// called from main() to run the simulation.  Summary-Results
+// reading from a provided file.  Preemptive.SchedulingAlgorithm.Run() is
+// called from main() to run the simulation.  Summary-Preemptive.Results
 // is where the summary results are written, and Summary-Processes
 // is where the process scheduling summary is written.
 
@@ -86,16 +86,16 @@ public class Scheduling {
     int i = 0;
 
     if (args.length != 1) {
-      System.out.println("Usage: 'java Scheduling <INIT FILE>'");
+      System.out.println("Usage: 'java Preemptive.Scheduling <INIT FILE>'");
       System.exit(-1);
     }
     File f = new File(args[0]);
     if (!(f.exists())) {
-      System.out.println("Scheduling: error, file '" + f.getName() + "' does not exist.");
+      System.out.println("Preemptive.Scheduling: error, file '" + f.getName() + "' does not exist.");
       System.exit(-1);
     }  
     if (!(f.canRead())) {
-      System.out.println("Scheduling: error, read of " + f.getName() + " failed.");
+      System.out.println("Preemptive.Scheduling: error, read of " + f.getName() + " failed.");
       System.exit(-1);
     }
     System.out.println("Working...");
@@ -115,14 +115,14 @@ public class Scheduling {
     result = SchedulingAlgorithm.Run(runtime, processVector);
     try {
       //BufferedWriter out = new BufferedWriter(new FileWriter(resultsFile));
-      String resultsFile = "Summary-Results";
+      String resultsFile = "Preemptive/Summary-Results";
       PrintStream out = new PrintStream(new FileOutputStream(resultsFile));
-      out.println("Scheduling Type: " + result.schedulingType);
-      out.println("Scheduling Name: " + result.schedulingName);
+      out.println("Preemptive.Scheduling Type: " + result.schedulingType);
+      out.println("Preemptive.Scheduling Name: " + result.schedulingName);
       out.println("Simulation Run Time: " + result.compuTime);
       out.println("Mean: " + meanDev);
       out.println("Standard Deviation: " + standardDev);
-      out.println("Process #\tCPU Time\tIO Blocking\tCPU Completed\tCPU Blocked");
+      out.println("Preemptive.Process #\tCPU Time\tIO Blocking\tCPU Completed\tCPU Blocked");
       for (i = 0; i < processVector.size(); i++) {
         sProcess process = processVector.elementAt(i);
         out.print(i);

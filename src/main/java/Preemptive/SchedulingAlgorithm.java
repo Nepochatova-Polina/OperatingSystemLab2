@@ -1,4 +1,4 @@
-
+package Preemptive;
 
 import java.util.Vector;
 import java.io.*;
@@ -12,32 +12,32 @@ public class SchedulingAlgorithm {
         int previousProcess;
         int size = processVector.size();
         int completed = 0;
-        String resultsFile = "Summary-Processes";
+        String resultsFile = "Preemptive/Summary-Processes";
         try {
             PrintStream out = new PrintStream(new FileOutputStream(resultsFile));
             sProcess process = (sProcess) processVector.elementAt(currentProcess);
-            out.println("Process: " + currentProcess + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
+            out.println("Preemptive.Process: " + currentProcess + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
             while (comptime < runtime) {
                 if (process.cpudone == process.cputime) {
                     completed++;
-                    out.println("Process: " + currentProcess + " completed "+ process.cpudone+ "... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
+                    out.println("Preemptive.Process: " + currentProcess + " completed "+ process.cpudone+ "... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
                     if (completed == size) {
                         out.close();
-                        return new Results("Batch (Non preemptive)","Shortest Job First",comptime);
+                        return new Results("Preemptive","Shortest Job First",comptime);
                     }
                     currentProcess = findMin(processVector,currentProcess);
                     process = (sProcess) processVector.elementAt(currentProcess);
-                    out.println("Process: " + currentProcess + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
+                    out.println("Preemptive.Process: " + currentProcess + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
                 }
                 if (process.ioblocking == process.ionext) {
-                    out.println("Process: " + currentProcess + " I/O blocked... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
+                    out.println("Preemptive.Process: " + currentProcess + " I/O blocked... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
                     process.numblocked++;
                     process.ionext = 0;
                     previousProcess = currentProcess;
                     currentProcess = findMin(processVector,previousProcess);
 
                     process = (sProcess) processVector.elementAt(currentProcess);
-                    out.println("Process: " + currentProcess + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
+                    out.println("Preemptive.Process: " + currentProcess + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
                 }
                 process.cpudone++;
                 if (process.ioblocking > 0) {
