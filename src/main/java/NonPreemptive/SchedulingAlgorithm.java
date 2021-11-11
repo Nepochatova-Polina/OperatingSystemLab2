@@ -18,8 +18,18 @@ public class SchedulingAlgorithm {
         result.schedulingType = "preemptive";
         result.schedulingName = "Shortest Job First";
         try {
+
             PrintStream out = new PrintStream(new FileOutputStream(resultsFile));
-            sProcess process = (sProcess) processVector.elementAt(currentProcess);
+            sProcess process;
+            int min = 1000;
+            for (i = size - 1; i >= 0; i--) {
+                process = (sProcess) processVector.elementAt(i);
+                if (process.cpudone < process.cputime && process.ioblocking < min) {
+                    min = process.ioblocking;
+                    currentProcess = i;
+                }
+            }
+             process = (sProcess) processVector.elementAt(currentProcess);
             out.println("Process: " + currentProcess + " registered... (" + process.cputime + " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
             while (comptime < runtime) {
                 if (process.cpudone == process.cputime) {
@@ -30,7 +40,7 @@ public class SchedulingAlgorithm {
                         out.close();
                         return;
                     }
-                    int min = 1000;
+                     min = 1000;
                     for (i = size - 1; i >= 0; i--) {
                         process = (sProcess) processVector.elementAt(i);
                         if (process.cpudone < process.cputime && process.ioblocking < min) {
