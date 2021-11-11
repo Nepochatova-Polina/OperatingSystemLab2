@@ -1,16 +1,7 @@
-// This file contains the main() function for the Scheduling
-// simulation.  Init() initializes most of the variables by
-// reading from a provided file.  SchedulingAlgorithm.Run() is
-// called from main() to run the simulation.  Summary-Results
-// is where the summary results are written, and Summary-Processes
-// is where the process scheduling summary is written.
-
-// Created by Alexander Reeder, 2001 January 06
 package NonPreemptive;
 
 import java.io.*;
 import java.util.*;
-
 
 public class Scheduling {
 
@@ -19,12 +10,12 @@ public class Scheduling {
   private static int standardDev = 100;
   private static int runtime = 1000;
   private static final Vector<sProcess> processVector = new Vector<>();
-  private static Results result = new Results("null","null",0);
+  private static final Results result = new Results("null","null",0);
 
   private static void Init(String file) {
     File f = new File(file);
     String line;
-    int cputime ;
+    int cputime;
     int ioblocking;
     double X;
 
@@ -57,7 +48,7 @@ public class Scheduling {
           }
           X = X * standardDev;
           cputime = (int) X + meanDev;
-          processVector.addElement(new sProcess(cputime, ioblocking, 0, 0, 0));          
+          processVector.addElement(new sProcess(cputime, ioblocking, 0, 0, 0));
         }
         if (line.startsWith("runtime")) {
           StringTokenizer st = new StringTokenizer(line);
@@ -109,13 +100,12 @@ public class Scheduling {
           }
           X = X * standardDev;
         int cputime = (int) X + meanDev;
-        processVector.addElement(new sProcess(cputime,i*100,0,0,0));          
+        processVector.addElement(new sProcess(cputime,i*100,0,0,0));
         i++;
       }
     }
     SchedulingAlgorithm.Run(runtime, processVector, result);
     try {
-      //BufferedWriter out = new BufferedWriter(new FileWriter(resultsFile));
       String resultsFile = "Summary-Results";
       PrintStream out = new PrintStream(new FileOutputStream(resultsFile));
       out.println("Scheduling Type: " + result.schedulingType);
