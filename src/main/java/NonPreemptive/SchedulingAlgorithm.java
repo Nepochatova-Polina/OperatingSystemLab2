@@ -15,8 +15,8 @@ public class SchedulingAlgorithm {
         int completed = 0;
         String resultsFile = "Summary-Processes";
 
-        result.schedulingType = "Batch (Nonpreemptive)";
-        result.schedulingName = "First-Come First-Served";
+        result.schedulingType = "preemptive";
+        result.schedulingName = "Shortest Job First";
         try {
             PrintStream out = new PrintStream(new FileOutputStream(resultsFile));
             sProcess process = (sProcess) processVector.elementAt(currentProcess);
