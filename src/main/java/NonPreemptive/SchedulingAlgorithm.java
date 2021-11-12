@@ -21,11 +21,11 @@ public class SchedulingAlgorithm {
 
             PrintStream out = new PrintStream(new FileOutputStream(resultsFile));
             sProcess process;
-            int min = 1000;
+            int max =0;
             for (i = size - 1; i >= 0; i--) {
                 process = (sProcess) processVector.elementAt(i);
-                if (process.cpudone < process.cputime && process.ioblocking < min) {
-                    min = process.ioblocking;
+                if (process.cpudone < process.cputime && process.ioblocking > max) {
+                    max = process.ioblocking;
                     currentProcess = i;
                 }
             }
@@ -40,11 +40,11 @@ public class SchedulingAlgorithm {
                         out.close();
                         return;
                     }
-                     min = 1000;
+                    max = 0;
                     for (i = size - 1; i >= 0; i--) {
                         process = (sProcess) processVector.elementAt(i);
-                        if (process.cpudone < process.cputime && process.ioblocking < min) {
-                            min = process.ioblocking;
+                        if (process.cpudone < process.cputime && process.ioblocking > max) {
+                            max = process.ioblocking;
                             currentProcess = i;
                         }
                     }
